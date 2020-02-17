@@ -13,18 +13,6 @@ public class OrderRender {
     this.strategy = strategy;
   }
 
-//  public ArrayList<Dish> getMenu() {
-//    return menu;
-//  }
-//
-//  public int[] getSubtotal() {
-//    return subtotal;
-//  }
-//
-//  public String getStrategy() {
-//    return strategy;
-//  }
-
   public String renderReceipt() {
     StringBuilder receipt = new StringBuilder("============= 订餐明细 =============\n");
     for (int i = 0; i < menu.size(); i++) {
