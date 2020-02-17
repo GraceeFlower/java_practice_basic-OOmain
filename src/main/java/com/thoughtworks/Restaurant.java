@@ -7,7 +7,7 @@ public class Restaurant {
   public String bestCharge(String selectedItems) {
     ArrayList<Dish> menu = getMenu(selectedItems);
     int[] subtotal = getSubtotal(menu);
-    String strategy = getStrategy(menu);
+    String strategy = getStrategy(menu, subtotal);
     return printReceipt(menu, subtotal, strategy);
   }
 
@@ -34,20 +34,36 @@ public class Restaurant {
     return subtotal;
   }
 
-  public String getStrategy(ArrayList<Dish> menu) {
+  public String getStrategy(ArrayList<Dish> menu, int[] subtotal) {
     ArrayList<Integer> halfOffInfo = calculateHalfOff(menu);
-    StringBuilder strategy = new StringBuilder("-----------------------------------\n"
-      + "使用优惠:\n"
-      + "指定菜品半价(");
-    int infoLen = halfOffInfo.size();
-    for (int i = 0; i < infoLen - 1; i++) {
-      strategy.append(menu.get(i).getName());
-      if (i != infoLen - 2) {
-        strategy.append("，");
+    int total = calculateTotal(subtotal);
+    int discount = calculateFullOff(total);
+    StringBuilder strategy = new StringBuilder();
+      if (discount > 0) {
+        strategy.append("-----------------------------------\n").append("使用优惠:\n");
+        if (discount < halfOffInfo.get(halfOffInfo.size() - 1)) {
+          strategy.append("指定菜品半价(");
+          int infoLen = halfOffInfo.size();
+          for (int i = 0; i < infoLen - 1; i++) {
+            strategy.append(menu.get(i).getName());
+            if (i != infoLen - 2) {
+              strategy.append("，");
+            }
+          }
+          strategy.append(")，省").append(halfOffInfo.get(infoLen - 1)).append("元\n");
+        } else {
+          strategy.append("满30减6元，省6元\n");
+        }
       }
-    }
-    strategy.append(")，省").append(halfOffInfo.get(infoLen - 1)).append("元\n");
     return strategy.toString();
+  }
+
+  public int calculateTotal(int[] subtotal) {
+    int total = 0;
+    for (int i: subtotal) {
+      total += i;
+    }
+    return total;
   }
 
   public ArrayList<Integer> calculateHalfOff(ArrayList<Dish> menu) {
@@ -62,6 +78,14 @@ public class Restaurant {
     }
     halfOffInfo.add(reducePrice);
     return halfOffInfo;
+  }
+
+  public int calculateFullOff(int total) {
+    int reducePrice = 0;
+    if (30 <= total) {
+      reducePrice = 6;
+    }
+    return reducePrice;
   }
 
   public String printReceipt(ArrayList<Dish> menu, int[] subtotal, String strategy) {
