@@ -13,14 +13,6 @@ public class Dish {
     this.price = price;
   }
 
-  public int getCount() {
-    return Integer.parseInt(count);
-  }
-
-  public void setCount(String count) {
-    this.count = count;
-  }
-
   public String getId() {
     return id;
   }
@@ -31,5 +23,13 @@ public class Dish {
 
   public double getPrice() {
     return price;
+  }
+
+  public int getCount() {
+    return Integer.parseInt(count);
+  }
+
+  public void setCount(String count) {
+    this.count = count;
   }
 }
