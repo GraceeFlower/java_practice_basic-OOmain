@@ -9,7 +9,6 @@ public class App {
     System.out.println("请点菜：");
     String selectedItems = getOrder.nextLine();
     Restaurant restaurant = new Restaurant();
-    System.out.println("这是您的订单详情：");
     System.out.println(restaurant.bestCharge(selectedItems));
   }
 }

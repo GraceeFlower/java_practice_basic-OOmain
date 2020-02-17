@@ -39,22 +39,25 @@ public class Restaurant {
     int total = calculateTotal(subtotal);
     int discount = calculateFullOff(total);
     StringBuilder strategy = new StringBuilder();
-      if (discount > 0) {
-        strategy.append("-----------------------------------\n").append("使用优惠:\n");
-        if (discount < halfOffInfo.get(halfOffInfo.size() - 1)) {
-          strategy.append("指定菜品半价(");
-          int infoLen = halfOffInfo.size();
-          for (int i = 0; i < infoLen - 1; i++) {
-            strategy.append(menu.get(i).getName());
-            if (i != infoLen - 2) {
-              strategy.append("，");
-            }
+    if (discount > 0) {
+      strategy.append("-----------------------------------\n").append("使用优惠:\n");
+      if (discount < halfOffInfo.get(halfOffInfo.size() - 1)) {
+        total -= halfOffInfo.get(halfOffInfo.size() - 1);
+        strategy.append("指定菜品半价(");
+        int infoLen = halfOffInfo.size();
+        for (int i = 0; i < infoLen - 1; i++) {
+          strategy.append(menu.get(i).getName());
+          if (i != infoLen - 2) {
+            strategy.append("，");
           }
-          strategy.append(")，省").append(halfOffInfo.get(infoLen - 1)).append("元\n");
-        } else {
-          strategy.append("满30减6元，省6元\n");
         }
+        strategy.append(")，省").append(halfOffInfo.get(infoLen - 1)).append("元\n");
+      } else {
+        total -= discount;
+        strategy.append("满30减6元，省6元\n");
       }
+    }
+    strategy.append("-----------------------------------\n总计：").append(total).append("元\n");
     return strategy.toString();
   }
 
