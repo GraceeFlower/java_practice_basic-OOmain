@@ -5,11 +5,10 @@ import java.util.ArrayList;
 public class Restaurant {
 
   public String bestCharge(String selectedItems) {
-    MenuParser parser = new MenuParser(selectedItems);
-    ArrayList<Dish> menu = parser.getMenuList();
+    ArrayList<Dish> menu = new MenuParser(selectedItems).getMenuList();
     int[] subtotal = getSubtotal(menu);
     String strategy = getStrategy(menu, subtotal);
-    return printReceipt(menu, subtotal, strategy);
+    return new OrderRender(menu, subtotal, strategy).renderReceipt();
   }
 
   public int[] getSubtotal(ArrayList<Dish> menu) {
@@ -75,17 +74,5 @@ public class Restaurant {
       reducePrice = 6;
     }
     return reducePrice;
-  }
-
-  public String printReceipt(ArrayList<Dish> menu, int[] subtotal, String strategy) {
-    StringBuilder receipt = new StringBuilder("============= 订餐明细 =============\n");
-    for (int i = 0; i < menu.size(); i++) {
-      Dish dish = menu.get(i);
-      receipt.append(dish.getName()).append(" x ").append(dish.getCount())
-        .append(" = ").append(subtotal[i]).append("元\n");
-    }
-    receipt.append(strategy);
-    receipt.append("===================================");
-    return receipt.toString();
   }
 }
