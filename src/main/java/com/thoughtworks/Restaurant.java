@@ -46,7 +46,7 @@ public class Restaurant {
         strategy.append("指定菜品半价(");
         int infoLen = halfOffInfo.size();
         for (int i = 0; i < infoLen - 1; i++) {
-          strategy.append(menu.get(i).getName());
+          strategy.append(menu.get(halfOffInfo.get(i)).getName());
           if (i != infoLen - 2) {
             strategy.append("，");
           }
@@ -102,5 +102,4 @@ public class Restaurant {
     receipt.append("===================================");
     return receipt.toString();
   }
-
 }
