@@ -2,6 +2,6 @@ package com.thoughtworks.strategy;
 
 public interface DiscountStrategy {
 
-  int getDiscountMoney();
-  String getDiscountInfo();
+    int getDiscountMoney();
+    String getDiscountInfo();
 }
