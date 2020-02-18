@@ -1,5 +1,10 @@
 package com.thoughtworks;
 
+import com.thoughtworks.dataHandler.OrderRender;
+import com.thoughtworks.dataHandler.MenuParser;
+import com.thoughtworks.strategy.FullOffStrategy;
+import com.thoughtworks.strategy.HalfOffStrategy;
+
 import java.util.ArrayList;
 
 public class Restaurant {

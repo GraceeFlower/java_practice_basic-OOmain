@@ -1,4 +1,7 @@
-package com.thoughtworks;
+package com.thoughtworks.strategy;
+
+import com.thoughtworks.dataHandler.DataProvider;
+import com.thoughtworks.Dish;
 
 import java.util.ArrayList;
 

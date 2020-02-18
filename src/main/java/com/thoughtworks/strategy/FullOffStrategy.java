@@ -1,4 +1,4 @@
-package com.thoughtworks;
+package com.thoughtworks.strategy;
 
 public class FullOffStrategy implements DiscountStrategy {
 
