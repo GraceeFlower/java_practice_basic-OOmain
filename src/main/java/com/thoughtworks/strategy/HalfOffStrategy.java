@@ -1,16 +1,15 @@
 package com.thoughtworks.strategy;
 
+import com.thoughtworks.OrderDish;
 import com.thoughtworks.dataHandler.DataProvider;
-import com.thoughtworks.Dish;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class HalfOffStrategy implements DiscountStrategy {
 
-    private ArrayList<Dish> menu;
+    private ArrayList<OrderDish> menu;
 
-    public HalfOffStrategy(ArrayList<Dish> menu) {
+    public HalfOffStrategy(ArrayList<OrderDish> menu) {
         this.menu = menu;
     }
 
@@ -18,9 +17,9 @@ public class HalfOffStrategy implements DiscountStrategy {
     public int getDiscountMoney() {
 
         int reducePrice = 0;
-        for (Dish dish : menu) {
-            if (DataProvider.getHalfDishIds().contains(dish.getId())) {
-                reducePrice += (int) dish.getPrice() / 2;
+        for (OrderDish dish : menu) {
+            if (DataProvider.getHalfDishIds().contains(dish.getDishInfo().getId())) {
+                reducePrice += (int) dish.getDishInfo().getPrice() / 2;
             }
         }
         return reducePrice;
@@ -30,9 +29,9 @@ public class HalfOffStrategy implements DiscountStrategy {
     public String getDiscountInfo() {
         StringBuilder strategy = new StringBuilder("指定菜品半价(");
         ArrayList<String> halfOffDish = new ArrayList<>();
-        for (Dish dish : menu) {
-            if (DataProvider.getHalfDishIds().contains(dish.getId())) {
-                halfOffDish.add(dish.getName());
+        for (OrderDish dish : menu) {
+            if (DataProvider.getHalfDishIds().contains(dish.getDishInfo().getId())) {
+                halfOffDish.add(dish.getDishInfo().getName());
             }
         }
         strategy.append(String.join("，", halfOffDish))

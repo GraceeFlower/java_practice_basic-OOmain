@@ -1,16 +1,16 @@
 package com.thoughtworks.strategy;
 
-import com.thoughtworks.Dish;
+import com.thoughtworks.OrderDish;
 
 import java.util.ArrayList;
 
 public class BestStrategy {
 
-    private final ArrayList<Dish> menu;
+    private final ArrayList<OrderDish> menu;
     private final int total;
     private int realTotal;
 
-    public BestStrategy(int total, ArrayList<Dish> menu) {
+    public BestStrategy(int total, ArrayList<OrderDish> menu) {
         this.menu = menu;
         this.total = total;
     }

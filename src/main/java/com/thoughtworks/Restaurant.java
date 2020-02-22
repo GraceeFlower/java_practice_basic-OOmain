@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Restaurant {
 
     public String bestCharge(String selectedItems) {
-        ArrayList<Dish> menu = new MenuParser(selectedItems).getMenuList();
+        ArrayList<OrderDish> menu = new MenuParser(selectedItems).getMenuList();
         int[] subtotal = getSubtotal(menu);
         int total = calculateTotal(subtotal);
         BestStrategy strategy = new BestStrategy(total, menu);
@@ -17,10 +17,11 @@ public class Restaurant {
             strategy.getRealTotal()).renderReceipt();
     }
 
-    public int[] getSubtotal(ArrayList<Dish> menu) {
+    public int[] getSubtotal(ArrayList<OrderDish> menu) {
         int[] subtotal = new int[menu.size()];
         for (int i = 0; i < subtotal.length; i++) {
-            subtotal[i] = menu.get(i).getCount() * (int) menu.get(i).getPrice();
+            subtotal[i] = menu.get(i).getDishCount()
+                * (int) menu.get(i).getDishInfo().getPrice();
         }
         return subtotal;
     }
