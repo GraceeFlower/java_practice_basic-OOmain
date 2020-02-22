@@ -4,6 +4,7 @@ import com.thoughtworks.dataHandler.DataProvider;
 import com.thoughtworks.Dish;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class HalfOffStrategy implements DiscountStrategy {
 
@@ -28,13 +29,14 @@ public class HalfOffStrategy implements DiscountStrategy {
     @Override
     public String getDiscountInfo() {
         StringBuilder strategy = new StringBuilder("指定菜品半价(");
+        ArrayList<String> halfOffDish = new ArrayList<>();
         for (Dish dish : menu) {
             if (DataProvider.getHalfDishIds().contains(dish.getId())) {
-                strategy.append(dish.getName()).append("，");
+                halfOffDish.add(dish.getName());
             }
         }
-        strategy.deleteCharAt(strategy.length() - 1).append(")，省")
-            .append(this.getDiscountMoney()).append("元\n");
+        strategy.append(String.join("，", halfOffDish))
+            .append(")，省").append(this.getDiscountMoney()).append("元\n");
         return strategy.toString();
     }
 }
