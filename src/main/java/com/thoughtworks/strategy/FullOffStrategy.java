@@ -1,9 +1,12 @@
 package com.thoughtworks.strategy;
 
+import com.thoughtworks.dataHandler.DataProvider;
+
 public class FullOffStrategy implements DiscountStrategy {
 
     private final int total;
-    private final int standardPrice = 30;
+    private final int standardPrice = DataProvider.getFullReductionLimit();
+    private final int fullReduction = DataProvider.getFullReduction();
 
     public FullOffStrategy(int total) {
         this.total = total;
@@ -11,15 +14,11 @@ public class FullOffStrategy implements DiscountStrategy {
 
     @Override
     public int getDiscountMoney() {
-        if (standardPrice <= total) {
-            return 6;
-        } else {
-            return 0;
-        }
+        return standardPrice > total ? 0 : fullReduction;
     }
 
     @Override
     public String getDiscountInfo() {
-        return "满" + standardPrice + "减6元，省6元\n";
+        return String.format("满%s减%s元，省%s元\n", standardPrice, fullReduction, fullReduction);
     }
 }
